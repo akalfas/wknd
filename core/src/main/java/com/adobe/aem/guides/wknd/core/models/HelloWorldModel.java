@@ -63,7 +63,7 @@ public class HelloWorldModel {
     public String getMessage() {
 		Library library = new Library();
 		library.test();
-		state = "visited";
+		state = "vizited";
 		return message;
     }
 
