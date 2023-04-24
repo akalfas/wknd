@@ -60,4 +60,12 @@ class HelloWorldModelTest {
         assertTrue(StringUtils.contains(msg, page.getPath()));
     }
 
+    @Test
+    void testVisited() throws Exception {
+        // some very basic junit tests
+//		hello.getMessage();
+        String msg = hello.getState();
+        assertNotNull(msg);
+    }
+
 }

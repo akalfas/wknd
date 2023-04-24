@@ -46,6 +46,7 @@ public class HelloWorldModel {
     private ResourceResolver resourceResolver;
 
     private String message;
+    private String state;
 
     @PostConstruct
     protected void init() {
@@ -62,7 +63,11 @@ public class HelloWorldModel {
     public String getMessage() {
 		Library library = new Library();
 		library.test();
+		state = "visited";
 		return message;
     }
 
+	public String getState() {
+		return state;
+	}
 }
