@@ -63,7 +63,7 @@ class HelloWorldModelTest {
     @Test
     void testVisited() throws Exception {
         // some very basic junit tests
-//		hello.getMessage();
+		hello.getMessage();
         String msg = hello.getState();
         assertNotNull(msg);
     }
