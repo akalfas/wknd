@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <profiles>
+
+        <!-- ====================================================== -->
+        <!-- P U B L I C P R O F I L E -->
+        <!-- ====================================================== -->
+        <profile>
+            <id>adobe-public</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <releaseRepository-Id>adobe-public-releases</releaseRepository-Id>
+                <releaseRepository-Name>Adobe Public Releases</releaseRepository-Name>
+                <releaseRepository-URL>https://repo.adobe.com/nexus/content/groups/public</releaseRepository-URL>
+            </properties>
+
+            <repositories>
+                <repository>
+                  <id>central</id>
+                  <name>Central Repository</name>
+                  <url>https://repo.maven.apache.org/maven2</url>
+                  <layout>default</layout>
+                  <snapshots>
+                    <enabled>false</enabled>
+                  </snapshots>
+                </repository>
+                <repository>
+                    <id>adobe-public-releases</id>
+                    <name>Adobe Basel Public Repository</name>
+                    <url>https://repo.adobe.com/nexus/content/groups/public</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>adobe-public-releases</id>
+                    <name>Adobe Basel Public Repository</name>
+                    <url>https://repo.adobe.com/nexus/content/groups/public</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+    </profiles>
+
+    <!-- ========================================================================== -->
+    <!--     A C T I V E   P R O F I L E S                                          -->
+    <!-- ========================================================================== -->
+    <activeProfiles>
+        <activeProfile>adobe-public</activeProfile>
+    </activeProfiles>
+
+    <!-- ========================================================================== -->
+    <!--     P L U G I N  G R O U P S                                               -->
+    <!-- ========================================================================== -->
+    <pluginGroups>
+        <pluginGroup>org.sonatype.plugins</pluginGroup>
+        <pluginGroup>com.day.jcr.vault</pluginGroup>
+        <pluginGroup>org.apache.sling</pluginGroup>
+        <pluginGroup>com.adobe.livecycle</pluginGroup>
+        <pluginGroup>com.adobe.granite</pluginGroup>
+    </pluginGroups>
+
+</settings>

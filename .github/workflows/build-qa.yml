@@ -1,0 +1,68 @@
+name: build-qa
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone
+      uses: actions/checkout@v3
+    - name: cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ${{ github.workspace }}/maven
+        key: ${{ runner.os }}-maven-${{ hashFiles('cache.version') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: cloudmanager
+      uses: addnab/docker-run-action@v3
+      with:
+        username: akalfas
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        image: ghcr.io/akalfas/self-service-build:latest
+        options: -v ${{ github.workspace }}:/mnt/git -v ${{ github.workspace }}/build-output:/mnt/artifacts/ -v ${{ github.workspace }}/maven://mnt/mvncache/ -e REGION_NAME=local -e ENVIRONMENT_NAME=local -e REPOSITORY_URL=/mnt/git
+        run: |
+          pwd
+          env
+          /opt/cm/run.sh
+    - name: output
+      id: cm_output
+      run: |
+        echo build_json="'"$(cat ${{ github.workspace }}/build-output/build.json)"'" >> $GITHUB_OUTPUT
+    - name: parser
+      uses: akalfas/cm-gate@main
+      id: parser
+      with:
+        build_result: ${{ fromJSON(steps.cm_output.outputs.build_json) }}
+    - uses: LouisBrunner/checks-action@v1.6.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: check build
+        conclusion: ${{ steps.parser.outputs.build }}
+        output: |
+          {"summary":"Build id lgtm"}
+    - uses: LouisBrunner/checks-action@v1.6.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: check unit tests
+        conclusion: ${{ steps.parser.outputs.unitTest }}
+        output: |
+          {"summary":"unitTest id lgtm"}
+    - uses: LouisBrunner/checks-action@v1.6.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        name: check code quality
+        conclusion: ${{ steps.parser.outputs.codeQuality }}
+        output: |
+          {"summary":"codeQuality id lgtm"}
+    - uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: ${{ github.workspace }}/build-output
