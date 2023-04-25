@@ -68,4 +68,11 @@ class HelloWorldModelTest {
         assertNotNull(msg);
     }
 
+    @Test
+    void testState() throws Exception {
+        // some very basic junit tests
+		String state = hello.getState();
+		assertNotNull(state);
+    }
+
 }
