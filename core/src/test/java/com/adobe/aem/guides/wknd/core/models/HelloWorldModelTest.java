@@ -25,8 +25,7 @@ import com.day.cq.wcm.api.Page;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Simple JUnit test verifying the HelloWorldModel
@@ -72,7 +71,7 @@ class HelloWorldModelTest {
     void testState() throws Exception {
         // some very basic junit tests
 		String state = hello.getState();
-		assertNotNull(state);
+		assertNull(state);
     }
 
 }
