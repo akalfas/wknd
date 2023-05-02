@@ -33,7 +33,7 @@ jobs:
         username: akalfas
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
-        image: ghcr.io/akalfas/self-service-build:arm
+        image: ghcr.io/akalfas/self-service-build:amd64
         options: -v ${{ github.workspace }}:/mnt/git -v ${{ github.workspace }}/build-output:/mnt/artifacts/ -v ${{ github.workspace }}/maven://mnt/mvncache/ -e REGION_NAME=local -e ENVIRONMENT_NAME=local -e REPOSITORY_URL=/mnt/git
         run: |
           pwd
