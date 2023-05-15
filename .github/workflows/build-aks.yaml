@@ -9,6 +9,9 @@ on:
 permissions:
       id-token: write
       contents: read
+      checks: write
+      packages: read
+      repository-projects: read
 
 jobs:
   build-and-deploy:
