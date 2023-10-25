@@ -1,7 +1,10 @@
 version: v1.1.0
 stepTimeout: 3600
 steps:
-    - build: -t $Registry/wknd:$ID --platform linux/amd64 -f Dockerfile .
-      cache: enabled
-    - push:
-          - "$Registry/wknd:$ID"
+    - cmd: >-
+          {{.Run.Registry}}/buildx
+          build --push
+          -t {{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:{{.Run.ID}}
+          --cache-from={{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:cache
+          --cache-to=type=registry,ref={{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:cache,mode=max
+          {{.Values.BUILD_CONTEXT}}
