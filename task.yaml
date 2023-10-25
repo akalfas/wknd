@@ -1,10 +1,13 @@
 version: v1.1.0
 stepTimeout: 3600
 steps:
+    - cmd: buildx create --use
     - cmd: >-
-          {{.Run.Registry}}/buildx
-          build --push
-          -t {{.Run.Registry}}/wknd:{{.Run.ID}}
-          --cache-from={{.Run.Registry}}/wknd:cache
-          --cache-to=type=registry,ref={{.Run.Registry}}/wknd:cache,mode=max
-          https://github.com/akalfas/wknd.git
+        buildx build
+        --push
+        --cache-to=type=registry,ref=$Registry/{{.Values.REPOSITORY_NAME}}:cache,mode=max
+        --cache-from=type=registry,ref=$Registry/{{.Values.REPOSITORY_NAME}}:cache
+        --tag $Registry/{{.Values.REPOSITORY_NAME}}:{{.Values.TAG_NAME}}
+        https://github.com/akalfas/wknd.git
+
+
