@@ -4,7 +4,7 @@ steps:
     - cmd: >-
           {{.Run.Registry}}/buildx
           build --push
-          -t {{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:{{.Run.ID}}
-          --cache-from={{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:cache
-          --cache-to=type=registry,ref={{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:cache,mode=max
-          {{.Values.BUILD_CONTEXT}}
+          -t {{.Run.Registry}}/wknd:{{.Run.ID}}
+          --cache-from={{.Run.Registry}}/wknd:cache
+          --cache-to=type=registry,ref={{.Run.Registry}}/wknd:cache,mode=max
+          https://github.com/akalfas/wknd.git
