@@ -52,7 +52,7 @@ class HelloWorldModelTest {
     }
 
     @Test
-    void testGetMessage() throws Exception {
+    void testGetMessageBasic() throws Exception {
         // some very basic junit tests
         String msg = hello.getMessage();
         assertNotNull(msg);
