@@ -8,3 +8,8 @@ steps:
           --cache-from={{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:cache
           --cache-to=type=registry,ref={{.Run.Registry}}/{{.Values.REPOSITORY_NAME}}:cache,mode=max
           {{.Values.BUILD_CONTEXT}}
+
+    az acr run -r akgha -f task.yaml \
+    --set BUILD_CONTEXT=https://github.com/akalfas/wknd.git \
+    --set REPOSITORY_NAME=wknd \
+    /dev/null
