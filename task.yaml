@@ -7,7 +7,7 @@ steps:
         --push
         --cache-to=type=registry,ref=$Registry/wknd:cache,mode=max
         --cache-from=type=registry,ref=$Registry/wknd:cache
-        --tag $Registry/wknd:{{.Values.TAG_NAME}}
+        --tag $Registry/wknd:one
         https://github.com/akalfas/wknd.git
 
 
