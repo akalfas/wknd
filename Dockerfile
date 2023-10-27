@@ -9,7 +9,6 @@ RUN --mount=type=cache,target=/cache if [ -f /cache/files.tar.gz ]; then tar xfv
 RUN --mount=type=cache,target=/cache find /root/.m2/repository -type f -name "*.jar" -o -name "*.pom" -o -name "*.slingosgifeature"> /tmp/archives && tar cfvz /cache/files.tar.gz -T /tmp/archives
 
 FROM akgha.azurecr.io/asr/java_v11_oracle_build:4.2.0
-COPY --from=build /cache/files.tar.gz /cache/files.tar.gz
 COPY --from=build /usr/app/all/target/aem-guides-wknd.all-3.2.2.zip all.zip
 
 
