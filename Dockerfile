@@ -4,5 +4,9 @@ ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
 ADD . $HOME
-RUN --mount=type=cache,target=/root/.m2 mvn -f $HOME/pom.xml clean install
+RUN mkdir /cache
+RUN --mount=type=cache,target=/cache if [ -f /cache/files.tar.gz ]; then tar xfvz /cache/files.tar.gz -C /; fi
+RUN mvn -f $HOME/pom.xml clean verify
+RUN --mount=type=cache,target=/cache find /root/.m2/repository -type f -name "*.jar" -o -name "*.pom" -o -name "*.slingosgifeature"> /tmp/archives && tar cfvz /cache/files.tar.gz -T /tmp/archives
+
 
