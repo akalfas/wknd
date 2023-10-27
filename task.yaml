@@ -5,9 +5,9 @@ steps:
     - cmd: >-
         buildx build
         --push
-        --cache-to=type=registry,ref=$Registry/{{.Values.REPOSITORY_NAME}}:cache,mode=max
-        --cache-from=type=registry,ref=$Registry/{{.Values.REPOSITORY_NAME}}:cache
-        --tag $Registry/{{.Values.REPOSITORY_NAME}}:{{.Values.TAG_NAME}}
+        --cache-to=type=registry,ref=$Registry/wknd:cache,mode=max
+        --cache-from=type=registry,ref=$Registry/wknd:cache
+        --tag $Registry/wknd:{{.Values.TAG_NAME}}
         https://github.com/akalfas/wknd.git
 
 
